@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>The Steaming Bulldog KBBQ</title>
 </head>
 <body>
+
+<a href="index.html">
+    <img src="images/logo.png" alt="The Steaming Bulldog logo" height="300">
+</a>
+
+<div>
+    <h1>The Steaming Bulldog KBBQ - Engineered for Flavor</h1>
+    <h2>Book a Reservation</h2>
+</div>
+
+<div>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="reservations.html">Book a Reservation</a>
+</div>
+
+<div>
+    <p>Reservations are at request only. Fill out the form below to book a table.</p>
+
+    <form action="/admin/users" method="GET">
+    <label>Name:
+        <input type="text" required maxlength="20" name="name" >
+    </label>
+    <label> Email:
+        <input type="email" name="email">
+    </label>
+    <label> Party Size (max 8):
+        <input type="number" min="1" max="8" name="party_size">
+    </label>
+    <label> Date:
+        <input type="date" name="date">
+    </label>
+    <label> Time:
+        <input type="time" name="reservation_time" value="12:00:00" min="12:00" max="23:00" step="600">
+    </label>
+    <label> Seating Preference:
+        <input type="radio" name="seating_preference" value="Dog Kennel" checked> Dog Kennel
+        <input type="radio" name="seating_preference" value="Indoor"> Indoor
+        <input type="radio" name="seating_preference" value="Outdoor"> Outdoor
+    </label>
+    <textarea name="dietary_restrictions" rows="4" cols="15" maxlength="30">Dietary Restrictons</textarea>
+    <label> Sign up for newsletter?:
+        <input type="checkbox" name="newsletter"> Yes
+    </label>
+
+
+    <button type="submit">Submit Reservation</button>
+    <button type="reset">Reset</button>
+    </form>
+</div>
+
+
 
 </body>
 </html>
