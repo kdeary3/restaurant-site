@@ -1,0 +1,140 @@
+/*
+FONT:
+I used the Hammersmith One font, because it reminded me of my time in Korea.
+This font looks very similar to my favorite KBBQ place.
+
+FONT AWESOME:
+I used the font awesome chili pepper to display if a menu item is
+hot or not. I made the color red as well using the .chili-pepper class.
+
+COLOR THEME:
+I chose this color theme because they match an image of a skyline and buildings
+that I really liked on our walk when we took photos. The colors
+complement each other well and give a bit of a darker/muted tone.
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Hammersmith One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --pale_slate: #CBCED4; /* Pale Slate */
+    --deep_space_blue: #212D3F; /* Deep Space Blue */
+    --blue_slate: #646E80; /* Blue Slate */
+    --charcoal_blue: #404755; /* Charcoal Blue */
+    --black: #060505; /* Black */
+    --chili-pepper: #E32227
+}
+
+body {
+    background-color: var(--blue_slate);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 10px
+}
+
+h1 {
+    padding: 5px;
+    display: block;
+}
+
+.img-border {
+    border: 5px dashed var(--charcoal_blue);
+}
+
+img {
+    display: block ;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-table {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+}
+
+th, td {
+    border: 1px solid;
+    padding: 2px 10px 2px;
+}
+
+
+.chili-pepper {
+    color: var(--chili-pepper)
+}
+
+
+/* NAV BAR STUFF*/
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 30px;
+    padding-top: 5px ;
+    padding-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    background-color: var(--charcoal_blue);
+    border-right: 2px solid black;
+}
+
+ul li {
+    float: left;
+}
+
+ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    text-decoration: none;
+
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+ul li a:hover {
+    background-color: var(--deep_space_blue);
+}
+
+/* FORM STUFF*/
+form {
+    background-color: var(--charcoal_blue);
+    padding: 20px 50px 20px;
+}
+
+label {
+    color: white;
+    display: block;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+legend {
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.label-padding {
+    padding-top: 20px;
+}
+
+input {
+    margin: 3px;
+}
+
