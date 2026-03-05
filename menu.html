@@ -4,32 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Steaming Bulldog KBBQ</title>
+
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/7b5569b04c.js" crossorigin="anonymous"></script>
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Hammersmith+One&display=swap" rel="stylesheet">
+
+    <!--Styles.css-->
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
-<a href="index.html">
+<a href="index.html" class="center">
     <img src="images/logo.png" alt="The Steaming Bulldog logo" height="300">
 </a>
 
-<div>
-    <h1>The Steaming Bulldog KBBQ - Engineered for Flavor</h1>
-    <h2>Menu</h2>
+<div class="center">
+    <h1>The Steaming Bulldog KBBQ - "Engineered for Flavor"</h1>
 </div>
 
-<div>
-    <a href="index.html">Home</a>
-    <a href="menu.html">Menu</a>
-    <a href="reservations.html">Book a Reservation</a>
+
+<nav class="navbar">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="reservations.html">Book a Reservation</a></li>
+    </ul>
+</nav>
+
+<div class="center">
+    <p>All you can eat Korean BBQ. Unlimited items at a fixed price. Eat to your stomach's content!</p>
 </div>
 
-<div>
-    <p>All you can eat KBBQ. Unlimited items at a fixed price. Eat to your stomach's content!</p>
+<div class="center">
         <ol>
-            <li>Lunch (12 to 3pm) -- $19.95</li>
-            <li>Dinner (3pm to close) -- $28.95.</li>
+            <li>Lunch (12pm to 3pm) ---------- $19.95</li>
+            <li>Dinner (3pm to 11pm close) ---- $28.95</li>
         </ol>
+</div>
 
+<div class="menu-table">
     <table>
+        <caption>All You Can Eat KBBQ Menu.</caption>
         <tr>
             <th>Num</th>
             <th>Item</th>
@@ -41,7 +61,7 @@
             <td>Premium Steak</td>
             <td>Top Sirlion</td>
             <td>
-                <img src="images/spice_level.png" alt="50" height="15"/>
+                <i class="fa-solid fa-pepper-hot chili-pepper"></i>
             </td>
         </tr>
         <tr>
@@ -49,9 +69,9 @@
             <td>Spicy Pork Bulgogi</td>
             <td>Marinated Spicy Pork (Thinly Sliced)</td>
             <td>
-                <img src="images/spice_level.png" alt="50" height="15"/>
-                <img src="images/spice_level.png" alt="50" height="15"/>
-                <img src="images/spice_level.png" alt="50" height="15"/>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
             </td>
 
         </tr>
@@ -60,7 +80,7 @@
             <td>Beef Bulgogi</td>
             <td>Marinated Prime Chuck Roll (Thinly Sliced)</td>
             <td>
-                <img src="images/spice_level.png" alt="50" height="15"/>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
             </td>
         </tr>
         <tr>
@@ -68,7 +88,8 @@
             <td>Garlic Chicken</td>
             <td>Marinated Rich Garlic Sauce</td>
             <td>
-                <img src="images/spice_level.png" alt="50" height="15"/>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
             </td>
         </tr>
         <tr>
@@ -81,17 +102,19 @@
             <td>Cat Meat</td>
             <td>Questionable</td>
             <td>
-                <img src="images/spice_level.png" alt="50" height="15"/>
-                <img src="images/spice_level.png" alt="50" height="15"/>
-                <img src="images/spice_level.png" alt="50" height="15"/>
-                <img src="images/spice_level.png" alt="50" height="15"/>
-                <img src="images/spice_level.png" alt="50" height="15"/>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
+            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
             </td>
         </tr>
     </table>
 </div>
 
-<img src="images/img3.jpg" alt="Boba Flavors" height="200">
+<div class="center">
+    <img src="images/img3.jpg" alt="Different Boba Flavors" class="img-border" width="500">
+</div>
 
 </body>
 </html>
