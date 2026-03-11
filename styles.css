@@ -44,6 +44,30 @@ body {
 h1 {
     padding: 5px;
     display: block;
+    font-size: clamp(1.1rem, 1.9vw, 2.5rem);
+    text-align: center;
+}
+
+h2 {
+    padding: 5px;
+    display: block;
+    font-size: clamp(1.0rem, 1.7vw, 2.3rem);
+    text-align: center;
+}
+
+table {
+    font-size: clamp(0.7rem, 0.85vw, 1.0rem);
+}
+
+
+.logo-border {
+    border: 5px dashed var(--charcoal_blue);
+}
+
+logo {
+    display: block ;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .img-border {
@@ -54,6 +78,9 @@ img {
     display: block ;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .menu-table {
@@ -81,14 +108,11 @@ th, td {
     align-items: center;
     column-gap: 30px;
     padding-top: 5px ;
-    padding-bottom: 20px;
 }
 
 ul {
     list-style-type: none;
     overflow: hidden;
-    background-color: var(--charcoal_blue);
-    border-right: 2px solid black;
 }
 
 ul li {
@@ -108,7 +132,7 @@ ul li a {
 }
 
 ul li a:hover {
-    background-color: var(--deep_space_blue);
+    background-color: var(--blue_slate);
 }
 
 /* FORM STUFF*/
@@ -138,3 +162,6 @@ input {
     margin: 3px;
 }
 
+.container {
+    padding: 10px 10px 10px;
+}

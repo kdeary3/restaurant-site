@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Steaming Bulldog KBBQ</title>
 
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <!--Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,35 +15,61 @@
 
     <!--Styles.css-->
     <link rel="stylesheet" href="styles.css">
-
 </head>
+
+
 <body>
 
-<a href="index.html" class="center">
-    <img src="images/logo.png" alt="The Steaming Bulldog logo" height="300">
-</a>
-
-<div class="center">
-    <h1>The Steaming Bulldog KBBQ - "Engineered for Flavor"</h1>
-</div>
-
-
-<nav class="navbar nav-ul">
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="reservations.html">Book a Reservation</a></li>
-    </ul>
-
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">The Steaming Bulldog KBBQ</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reservations.html">Reservations</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<div class="center">
-    <img src="images/img1.jpg" class="img-border" alt="KBBQ Dinner" width="500">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center">
+            <a href="index.html">
+                <img src="images/logo.png" class="img-fluid" alt="Steaming Bulldog logo" style="height:300px;">
+            </a>
+        </div>
+    </div>
 </div>
 
-<div class="center">
-    <img src="images/img2.jpg" class="img-border" alt="KBBQ Dinner 2" width="500">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-sm-10 text-center">
+            <h1>The Steaming Bulldog KBBQ</h1>
+            <h2>"Engineered for Flavor"</h2>
+
+            <div class="container">
+                <img src="images/img1.jpg" class="img-border img-fluid" alt="KBBQ Dinner" style="max-width:500px;">
+            </div>
+
+            <div class="container">
+                <img src="images/img2.jpg" class="img-border img-fluid" alt="KBBQ Dinner 2" style="max-width:500px;">
+            </div>
+
+        </div>
+    </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

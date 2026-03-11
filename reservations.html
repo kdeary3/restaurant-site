@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Steaming Bulldog KBBQ</title>
 
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <!--Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,69 +19,91 @@
 </head>
 <body>
 
-<a href="index.html" class="center">
-    <img src="images/logo.png" alt="The Steaming Bulldog logo" height="300">
-</a>
-
-<div class="center">
-    <h1>The Steaming Bulldog KBBQ - "Engineered for Flavor"</h1>
-</div>
-
-
-<nav class="navbar">
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="reservations.html">Book a Reservation</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">The Steaming Bulldog KBBQ</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reservations.html">Reservations</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<div class="center">
-    <p>Reservations are at request only. Fill out the form below to book a table.</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center">
+            <a href="index.html">
+                <img src="images/logo.png" class="img-fluid" alt="Steaming Bulldog logo" style="height:300px;">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-sm-10 text-center">
+            <div class="center">
+                <p>Reservations are at request only. Fill out the form below to book a table.</p>
+            </div>
+
+            <div>
+                <form action="/admin/users" method="GET">
+                <label>Name:
+                    <input type="text" maxlength="20" name="name" placeholder="John Smith" required>
+                </label>
+                <label> Email:
+                    <input type="email" name="email" placeholder="jsmith@email.com" required>
+                </label>
+                <label> Party Size (max 8):
+                    <input type="number" min="1" max="8" placeholder="2" name="party_size">
+                </label>
+                <label> Date:
+                    <input type="date" name="date" required>
+                </label>
+                <label> Time (30 min increments):
+                    <input type="time" name="reservation_time" step="1800" min="12:00" max="23:00" required>
+                </label>
+
+                    <fieldset>
+                        <legend>Seating Preference:</legend>
+                    <label class="label-padding">
+                        <input type="radio" name="seating_preference" value="Dog Kennel" checked> Dog Kennel
+                    </label>
+                    <label>
+                        <input type="radio" name="seating_preference" value="Indoor"> Indoor
+                    </label>
+                    <label>
+                        <input type="radio" name="seating_preference" value="Outdoor"> Outdoor
+                    </label>
+                </fieldset>
+                <label class="label-padding">
+                    <textarea name="dietary_restrictions" rows="4" cols="40" maxlength="30">Enter any dietary restrictions.</textarea>
+                </label>
+                <label> Sign up for newsletter?:
+                    <input type="checkbox" name="newsletter"> Yes
+                </label>
+
+
+                <button type="submit" class="btn btn-success">Submit Reservation</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="center">
-    <form action="/admin/users" method="GET">
-    <label>Name:
-        <input type="text" maxlength="20" name="name" required>
-    </label>
-    <label> Email:
-        <input type="email" name="email" required>
-    </label>
-    <label> Party Size (max 8):
-        <input type="number" min="1" max="8" name="party_size">
-    </label>
-    <label> Date:
-        <input type="date" name="date" required>
-    </label>
-    <label> Time (30 min increments):
-        <input type="time" name="reservation_time" step="1800" min="12:00" max="23:00" required>
-    </label>
 
-        <fieldset>
-            <legend>Seating Preference:</legend>
-        <label class="label-padding">
-            <input type="radio" name="seating_preference" value="Dog Kennel" checked> Dog Kennel
-        </label>
-        <label>
-            <input type="radio" name="seating_preference" value="Indoor"> Indoor
-        </label>
-        <label>
-            <input type="radio" name="seating_preference" value="Outdoor"> Outdoor
-        </label>
-    </fieldset>
-    <label class="label-padding">
-        <textarea name="dietary_restrictions" rows="4" cols="40" maxlength="30">Enter any dietary restrictions.</textarea>
-    </label>
-    <label> Sign up for newsletter?:
-        <input type="checkbox" name="newsletter"> Yes
-    </label>
-
-
-    <button type="submit">Submit Reservation</button>
-    <button type="reset">Reset</button>
-    </form>
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
