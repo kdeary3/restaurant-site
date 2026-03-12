@@ -44,6 +44,9 @@
     </div>
 </nav>
 
+<div id="alert-placeholder" class="fixed-top container d-flex flex-column align-items-center" style="top: 80px; z-index: 1050; pointer-events: none;">
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 d-flex justify-content-center">
@@ -59,144 +62,18 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-sm-10 text-center">
 
-            <p>All you can eat Korean BBQ. Unlimited items at a fixed price. Eat to your stomach's content!</p>
+            <p>All you can eat Korean BBQ. Unlimited items at a fixed price. <br> Eat to your stomach's content!</p>
 
-            <div>
-                    <p>Lunch (12pm to 3pm) ---------- $19.95 <br>
+            <div id="lunchDinnerPremiumPricing">
+                    <p>Lunch (12pm to 3pm) ---------- money.format($19.95) <br>
                        Dinner (3pm to 11pm close) ---- $28.95 <br>
                        Add $10 for Premium Menu</p>
             </div>
 
-            <div>
-                <p>All You Can Eat KBBQ Menu</p>
-                <table class="table mx-auto" style="width: auto;">
-                    <tr>
-                        <th>Num</th>
-                        <th>Item</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        <th>Spice Level</th>
-                        <th>Premium or Regular</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Premium Steak</td>
-                        <td>Top Sirlion</td>
-                        <td>Beef</td>
-                        <td>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Premium</th>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Spicy Pork Bulgogi</td>
-                        <td>Marinated Spicy Pork (Thinly Sliced)</td>
-                        <td>Pork</td>
-                        <td>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Regular</th>
-
-
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Beef Bulgogi</td>
-                        <td>Marinated Prime Chuck Roll (Thinly Sliced)</td>
-                        <td>Beef</td>
-                        <td>
-                        </td>
-                        <th>Regular</th>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Garlic Chicken</td>
-                        <td>Marinated Rich Garlic Sauce</td>
-                        <td>Chicken</td>
-                        <td>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Regular</th>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Boba</td>
-                        <td>Milk Tea, Strawberry Slush, or Jasmine Green Tea</td>
-                        <td>Drink</td>
-                        <td></td>
-                        <th>Not Included ($6.99)</th>
-                    </tr>
-
-                    <tr>
-                        <td>6</td>
-                        <td>K-Gochujang Beef Belly</td>
-                        <td>Beef Belly with a Korean Spicy Sauce</td>
-                        <td>Beef</td>
-                        <td>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Regular</th>
-                    </tr>
-
-                    <tr>
-                        <td>7</td>
-                        <td>Chadol</td>
-                        <td>Premium Angus Brisket (thinly sliced)</td>
-                        <td>Beef</td>
-                        <td>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Premium</th>
-                    </tr>
-
-                    <tr>
-                        <td>8</td>
-                        <td>Galbi Short Ribs</td>
-                        <td>Premium Marbling Center Cut Ribs</td>
-                        <td>Beef</td>
-                        <td>
-                            <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Premium</th>
-                    </tr>
-
-                    <tr>
-                        <td>9</td>
-                        <td>Honey Soy Chicken</td>
-                        <td>Chicken with a sweet and savory sauce</td>
-                        <td>Chicken</td>
-                        <td>
-                        </td>
-                        <th>Regular</th>
-                    </tr>
-
-                    <tr>
-                        <td>10</td>
-                        <td>Cat Meat</td>
-                        <td>Questionable</td>
-                        <td>Cat</td>
-                        <td>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        <i class="fa-solid fa-pepper-hot chili-pepper"></i>
-                        </td>
-                        <th>Premium</th>
-                    </tr>
-
-                </table>
-            </div>
-
-            <div class="center">
-                <img src="images/img3.jpg" alt="Different Boba Flavors" class="img-border" width="500">
+            <!-- Calls function in script.js to display all menu item cards.-->
+            <div class="container">
+                <div id="menu-container" class="row justify-content-center g-4">
+                </div>
             </div>
 
         </div>
@@ -204,6 +81,7 @@
 </div>
 
 
+<script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
