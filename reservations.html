@@ -60,26 +60,26 @@
             </div>
 
             <div id="reservation-container">
-                <form class="reservation-form" action="/admin/users" method="GET">
+                <form id="res-form" class="reservation-form">
                 <label>Name:
-                    <input type="text" maxlength="20" name="name" placeholder=" John Smith" required>
+                    <input type="text" name="name" placeholder=" John Smith">
                 </label>
                 <label> Email:
-                    <input type="email" name="email" placeholder=" jsmith@email.com" required>
+                    <input type="email" name="email" placeholder=" jsmith@email.com">
                 </label>
                 <label> Party Size (max 8):
-                    <input type="number" min="1" max="8" placeholder="2" name="party_size">
+                    <input type="number" name="party_size" placeholder="2" >
                 </label>
                 <label> Date:
-                    <input type="date" name="date" required>
+                    <input type="date" name="date">
                 </label>
                 <label> Time (30 min increments):
-                    <input type="time" name="reservation_time" step="1800" min="12:00" max="23:00" required>
+                    <input type="time" name="reservation_time">
                 </label>
-
                     <fieldset>
-                    <legend>Seating Preference:</legend>
                     <label class="label-padding">
+                        Seating Preference:
+                        <br><br>
                         <input type="radio" name="seating_preference" value="Dog Kennel" checked> Dog Kennel
                     </label>
                     <label>
@@ -89,8 +89,8 @@
                         <input type="radio" name="seating_preference" value="Outdoor"> Outdoor
                     </label>
                 </fieldset>
-                <label class="label-padding">
-                    <textarea name="dietary_restrictions" rows="4" cols="40" maxlength="30">Enter any dietary restrictions.</textarea>
+                <label class="label-padding"> Dietary Restrictions: <br>
+                    <textarea name="dietary_restrictions" rows="4" cols="40" placeholder="  Enter any dietary restrictions."></textarea>
                 </label>
                 <label> Sign up for newsletter?:
                     <input type="checkbox" name="newsletter"> Yes
