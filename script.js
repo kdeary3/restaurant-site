@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function (){
 // menu page
 let menuContainer = document.getElementById('menu-container');
 let pricingContainer = document.getElementById('lunchDinnerPremiumPricing');
+let itemsOrderedArray = [] ;
 
 if (menuContainer || pricingContainer) {
     let prices = { lunch: 19.95, dinner: 28.95, premium: 10.00 };
@@ -140,29 +141,113 @@ if (menuContainer || pricingContainer) {
     ]
 
     if (menuContainer) {
-        menuContainer.innerHTML = MENU_ITEMS.map(item => `
-            <div class="col-md-4 col-sm-8 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="${item.item_image}.png" class="card-img-top" alt="${item.name}">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">${item.name}</h5>
+        menuContainer.innerHTML = MENU_ITEMS.map(item => {
+            // Determine numeric price for the data attribute
+            let numericPrice = 0;
+            if (item.price === "Regular") numericPrice = 19.95;
+            else if (typeof item.price === "string" && item.price.includes("9999")) numericPrice = 9999.99;
+            else if (item.name === "Boba") numericPrice = 6.99;
+            else numericPrice = 28.95;
+
+            return `
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="${item.item_image}.png" class="card-img-top" alt="${item.name}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">${item.name}</h5>
                         <p class="card-text">${item.description}</p>
                         <p class="fw-bold text-danger">${item.price}</p>
                         <p>${item.spice_level}</p>
-                        <button class="btn btn-success add-to-order">Add to Order</button>
-                    </div>
+                    <button class="btn btn-success add-to-order" 
+                        data-id="${item.id}" 
+                        data-name="${item.name}" 
+                        data-category="${item.price}"
+                        data-price="${numericPrice}">
+                        Add to Order
+                    </button>
                 </div>
             </div>
-        `).join('');
+        </div>`;
+        }).join('');
 
         menuContainer.addEventListener("click", (event) => {
             if (event.target.classList.contains("add-to-order")) {
-                let itemName = event.target.closest(".card-body").querySelector(".card-title").innerText;
-                showAlert(itemName);
+                const btn = event.target;
+
+                // Pull the data-attributes we just created
+                const id = btn.getAttribute("data-id");
+                const name = btn.getAttribute("data-name");
+                const reg_or_prem = btn.getAttribute("data-category");
+                const price = parseFloat(btn.getAttribute("data-price"));
+
+                let cart = JSON.parse(localStorage.getItem("userCart")) || [];
+
+                // Look for the specific ID in the current cart
+                const existingItem = cart.find(item => item.id === id);
+
+                if (existingItem) {
+                    // If ID matches, just bump quantity
+                    existingItem.quantity += 1;
+                } else {
+                    // If ID is unique, add it as a new line item
+                    cart.push({ id, name, price, reg_or_prem, quantity: 1 });
+                }
+
+                localStorage.setItem("userCart", JSON.stringify(cart));
+                showAlert(name);
             }
         });
     }
 }
+
+function displayCart() {
+    const cartDisplay = document.getElementById('items-in-cart');
+    if (!cartDisplay) return;
+
+    const cart = JSON.parse(localStorage.getItem("userCart")) || [];
+
+    if (cart.length === 0) {
+        cartDisplay.innerHTML = '<li class="list-group-item">Your cart is empty</li>';
+        return;
+    }
+
+    cartDisplay.innerHTML = cart.map((item, index) => `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            ${item.name} (x${item.quantity}) - ${item.reg_or_prem}
+            <button class="btn btn-sm btn-outline-danger remove-item" data-index="${index}">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </li>
+        
+        <p>Total Cost: $${(item.price * item.quantity).toFixed(2)}</p>
+    `).join('');
+}
+
+// Handle Deleting Items
+document.addEventListener('click', (event) => {
+    if (event.target.closest('.remove-item')) {
+        const index = event.target.closest('.remove-item').dataset.index;
+        let cart = JSON.parse(localStorage.getItem("userCart")) || [];
+
+        cart.splice(index, 1); // Remove the item
+        localStorage.setItem("userCart", JSON.stringify(cart));
+        displayCart(); // Refresh the UI
+    }
+});
+
+// Run on load
+displayCart();
+
+// Clear cart
+document.addEventListener("click", (event) => {
+    if (event.target.closest(".clear-cart")) {
+        if (confirm("Are you sure you want to empty your entire cart?")) {
+            localStorage.removeItem("userCart");
+            displayCart();
+            console.log("Cart cleared by user.");
+        }
+    }
+});
 
 // waiter bringing food alert.
 let showAlert = (itemName) => {
@@ -265,7 +350,7 @@ function showStatusAlert(message, type) {
     let alertDiv = document.createElement('div');
     alertDiv.innerHTML = `
         <div class="alert alert-${type} alert-dismissible fade show shadow-lg" role="alert">
-            <!--ternary to determine alert type-->
+            <!--I included a ternary to determine alert type-->
            ${type === 'danger' ? '<strong>Error:</strong> ' : ''}${message}
            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
