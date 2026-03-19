@@ -11,22 +11,15 @@ document.addEventListener("DOMContentLoaded", function (){
     let discountModal = document.getElementById('discount-modal');
     if (discountModal) {
         let discountEmailForm = discountModal.querySelector('form');
-
-        if (discountEmailForm) {
-            discountEmailForm.addEventListener("submit", (event) => {
-                event.preventDefault();
-
-                let email = new FormData(discountEmailForm).get("email");
-                console.log("Discount Email Captured:", email);
-
-                let modalInstance = bootstrap.Modal.getInstance(discountModal);
-                modalInstance.hide();
-            });
-        }
-
+        discountEmailForm.addEventListener("submit", (event)=> {
+            event.preventDefault();
+            let email = new FormData(discountEmailForm).get("email");
+            console.log("Discount Email Captured:", email);
+            discountEmailForm.reset();
+            modal.hide();
+        });
         let modal = new bootstrap.Modal(discountModal);
         modal.show();
-        if (discountEmailForm) discountForm.reset();
     }
 });
 
@@ -40,9 +33,9 @@ if (menuContainer || pricingContainer) {
 
     if (pricingContainer) {
         pricingContainer.innerHTML = `
-            <p>Lunch (12pm to 3pm) — ${money.format(prices.lunch)} <br>
-               Dinner (3pm to 11pm close) — ${money.format(prices.dinner)} <br>
-               <em>Add ${money.format(prices.premium)} for the Premium Menu</em></p>
+            <p>Lunch (12pm to 3pm) — ${money.format(prices.lunch)} / person <br>
+               Dinner (3pm to 11pm close) — ${money.format(prices.dinner)} / person <br>
+               <em>Add ${money.format(prices.premium)} / person for the Premium Menu</em></p>
         `;
     }
 
@@ -133,7 +126,7 @@ if (menuContainer || pricingContainer) {
             id: 10,
             name: "Cat Meat",
             description: "Questionable",
-            price: `Premium <br>${money.format(9999.99)}`,
+            price: `Not Included <br> ${money.format(9999.99)}`,
             category: "Cat",
             spice_level: spice_level(5),
             item_image: "/images/menu_item_images/img10"
@@ -141,44 +134,76 @@ if (menuContainer || pricingContainer) {
     ]
 
     if (menuContainer) {
-        menuContainer.innerHTML = MENU_ITEMS.map(item => {
-            // Determine numeric price for the data attribute
-            let numericPrice = 0;
-            if (item.price === "Regular") numericPrice = 19.95;
-            else if (typeof item.price === "string" && item.price.includes("9999")) numericPrice = 9999.99;
-            else if (item.name === "Boba") numericPrice = 6.99;
-            else numericPrice = 28.95;
+        function renderMenu(filter = "all") {
+            const menuContainer = document.getElementById('menu-container');
+            if (!menuContainer) return;
 
-            return `
+            // 1. Filter the data first
+            const filteredItems = MENU_ITEMS.filter(item => {
+                if (filter === "all") return true;
+                return item.price.includes(filter);
+            });
+
+            // 2. Map the filtered items to HTML
+            menuContainer.innerHTML = filteredItems.map(item => {
+                let numericPrice = 0;
+                if (item.price.includes("Regular")) numericPrice = 19.95;
+                else if (item.name === "Boba") numericPrice = 6.99;
+                else if (item.name === "Cat Meat") numericPrice = 9999.99;
+                else numericPrice = 28.95;
+
+                return `
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm">  
                 <img src="${item.item_image}.png" class="card-img-top" alt="${item.name}">
-                <div class="card-body text-center">
+                    <div class="card-body text-center">
                     <h5 class="card-title">${item.name}</h5>
                         <p class="card-text">${item.description}</p>
                         <p class="fw-bold text-danger">${item.price}</p>
                         <p>${item.spice_level}</p>
-                    <button class="btn btn-success add-to-order" 
-                        data-id="${item.id}" 
-                        data-name="${item.name}" 
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Qty</span>
+                        <select class="form-select item-qty" id="qty-${item.id}">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+
+                <button class="btn btn-success add-to-order"
+                        data-id="${item.id}"
+                        data-name="${item.name}"
                         data-category="${item.price}"
                         data-price="${numericPrice}">
-                        Add to Order
-                    </button>
-                </div>
+                    Add to Cart
+                </button>
             </div>
-        </div>`;
-        }).join('');
+            </div>
+            </div>`;
+            }).join('');
+        }
+
+
+        document.getElementById('category-filter')?.addEventListener('change', (e) => {
+            renderMenu(e.target.value);
+        });
+
+        renderMenu();
 
         menuContainer.addEventListener("click", (event) => {
             if (event.target.classList.contains("add-to-order")) {
                 const btn = event.target;
 
-                // Pull the data-attributes we just created
-                const id = btn.getAttribute("data-id");
-                const name = btn.getAttribute("data-name");
-                const reg_or_prem = btn.getAttribute("data-category");
-                const price = parseFloat(btn.getAttribute("data-price"));
+                const cardBody = btn.closest('.card-body');
+                let qtySelect = cardBody.querySelector('.item-qty');
+                let quantityToAdd = parseInt(qtySelect.value);
+                let id = btn.getAttribute("data-id");
+                let name = btn.getAttribute("data-name");
+                let reg_or_prem = btn.getAttribute("data-category");
+                let price = parseFloat(btn.getAttribute("data-price"));
 
                 let cart = JSON.parse(localStorage.getItem("userCart")) || [];
 
@@ -187,14 +212,14 @@ if (menuContainer || pricingContainer) {
 
                 if (existingItem) {
                     // If ID matches, just bump quantity
-                    existingItem.quantity += 1;
+                    existingItem.quantity += quantityToAdd;
                 } else {
                     // If ID is unique, add it as a new line item
-                    cart.push({ id, name, price, reg_or_prem, quantity: 1 });
+                    cart.push({ id, name, price, reg_or_prem, quantity: quantityToAdd });
                 }
 
                 localStorage.setItem("userCart", JSON.stringify(cart));
-                showAlert(name);
+                showAlert(name, quantityToAdd);
             }
         });
     }
@@ -207,21 +232,147 @@ function displayCart() {
     const cart = JSON.parse(localStorage.getItem("userCart")) || [];
 
     if (cart.length === 0) {
-        cartDisplay.innerHTML = '<li class="list-group-item">Your cart is empty</li>';
+        cartDisplay.innerHTML = '<li class="list-group-item text-muted text-center py-3">Your cart is empty</li>';
+        // Hide the cost summary if the cart is empty
+        const costContainer = document.getElementById('customer-cost');
+        if (costContainer) costContainer.innerHTML = "";
         return;
     }
 
-    cartDisplay.innerHTML = cart.map((item, index) => `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            ${item.name} (x${item.quantity}) - ${item.reg_or_prem}
-            <button class="btn btn-sm btn-outline-danger remove-item" data-index="${index}">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-        </li>
-        
-        <p>Total Cost: $${(item.price * item.quantity).toFixed(2)}</p>
-    `).join('');
+    cartDisplay.innerHTML = cart.map((item, index) => {
+        // 1. Calculate the cost for "Not Included" items ONLY
+        let displayPrice = "";
+
+        if (item.reg_or_prem.includes("Not Included")) {
+            const lineItemTotal = item.price * item.quantity;
+            displayPrice =
+                `
+                <span class="badge bg-danger">Not Included</span>
+                ${money.format(lineItemTotal)}
+                `
+        } else if (item.reg_or_prem.includes("Premium")) {
+            displayPrice = `
+                <span class="badge bg-info text-dark">Included</span>
+                <span class="badge bg-warning text-dark">Premium</span>
+                `;
+        }
+        else {
+            displayPrice = `<span class="badge bg-info text-dark">Included</span>`;
+        }
+
+        return `
+            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                <div class="text-start flex-grow-1">
+                    <div class="fw-bold mb-0">${item.name}</div>
+                    <div class="text-muted small">(x${item.quantity}) | ${item.reg_or_prem}</div>
+                </div>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <div class="text-end">
+                        <div class="fw-bold">${displayPrice}</div>
+                    </div>
+                    
+                    <button class="btn btn-outline-danger btn-sm remove-item" 
+                            data-index="${index}" 
+                            title="Remove Item">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </li>
+        `;
+    }).join('');
+
+    // 2. ALWAYS refresh the bottom total whenever the cart is rendered
+    displayCustomerCost();
 }
+
+function displayCustomerCost() {
+    const displayContainer = document.getElementById('customer-cost');
+    if (!displayContainer) return;
+
+    // 1. Snag the current party size BEFORE we wipe the HTML
+    const currentPartyInput = document.getElementById('party-size');
+    const savedPartySize = currentPartyInput ? currentPartyInput.value : "1";
+
+    const totals = calculateOrderSubtotal();
+    const taxRate = 0.0825;
+    const taxAmount = totals.subtotal * taxRate;
+    const grandTotal = totals.subtotal + taxAmount;
+
+    displayContainer.innerHTML = `
+        <br>
+        <div class="card p-3 shadow-sm border-0 bg-light">
+            <h6 class="fw-bold mb-3 text-center">Order Summary</h6>
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text">Party Size</span>
+                <select class="form-select" id="party-size">
+                    ${[1,2,3,4,5,6,7,8].map(num =>
+        `<option value="${num}" ${savedPartySize == num ? 'selected' : ''}>${num}</option>`
+    ).join('')}
+                </select>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-1">
+                <span>${totals.regOrPrem} Menu (${money.format(totals.rateUsed)}/person):</span>
+                <span>${money.format(totals.partyTotal)}</span>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-1">
+                <span>Add-ons (Boba, etc.):</span>
+                <span>${money.format(totals.addonsTotal)}</span>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-1">
+                <span>Tax (8.25%):</span>
+                <span>${money.format(taxAmount)}</span>
+            </div>
+            
+            <hr>
+            
+            <div class="d-flex justify-content-between fw-bold text-success fs-5">
+                <span>Total:</span>
+                <span>${money.format(grandTotal)}</span>
+            </div>
+        </div>
+    `;
+
+    // 2. CRITICAL: Re-attach the listener to the NEWLY created element
+    document.getElementById('party-size').addEventListener('change', () => {
+        displayCustomerCost();
+    });
+}
+
+
+function calculateOrderSubtotal() {
+    const cart = JSON.parse(localStorage.getItem("userCart")) || [];
+    const partyInput = document.getElementById('party-size');
+
+    const partySize = partyInput ? parseInt(partyInput.value) || 1 : 1;
+
+    const hasPremiumItem = cart.some(item => item.reg_or_prem.includes("Premium"));
+
+    const ratePerPerson = hasPremiumItem ? 38.95 : 28.95;
+    const regOrPrem = hasPremiumItem ? "Premium" : "Regular";
+
+    let partyBaseCost = partySize * ratePerPerson;
+    let addonsCost = 0;
+
+    cart.forEach(item => {
+        if (item.reg_or_prem.includes("Not Included")) {
+            addonsCost += (item.price * item.quantity);
+        }
+    });
+
+    return {
+        regOrPrem,
+        rateUsed: ratePerPerson,
+        partyTotal: partyBaseCost,
+        addonsTotal: addonsCost,
+        subtotal: partyBaseCost + addonsCost
+    };
+}
+
 
 // Handle Deleting Items
 document.addEventListener('click', (event) => {
@@ -232,25 +383,53 @@ document.addEventListener('click', (event) => {
         cart.splice(index, 1); // Remove the item
         localStorage.setItem("userCart", JSON.stringify(cart));
         displayCart(); // Refresh the UI
+        displayCustomerCost();
     }
 });
 
 // Run on load
 displayCart();
+displayCustomerCost()
+
+// Clear cart
+document.addEventListener(
+    "click", (event) => {
+    if (event.target.closest(".clear-cart")) {
+        clearCartConfirm.innerHTML =
+            `
+            <button className="btn btn-success cart-checkout">
+                <i></i>Checkout
+            </button>
+            `
+
+        let clearCartConfirm = discountModal.querySelector('form');
+        discountEmailForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            localStorage.removeItem("userCart");
+            displayCart();
+            displayCustomerCost();
+            console.log("Cart cleared by user.");
+            modal.hide();
+        });
+        let modal = new bootstrap.Modal(discountModal);
+        modal.show();
+    }
+    });
 
 // Clear cart
 document.addEventListener("click", (event) => {
-    if (event.target.closest(".clear-cart")) {
-        if (confirm("Are you sure you want to empty your entire cart?")) {
+    if (event.target.closest(".cart-checkout")) {
+        if (confirm("Thank you.")) {
             localStorage.removeItem("userCart");
             displayCart();
-            console.log("Cart cleared by user.");
+            displayCustomerCost();
+            console.log("User check out");
         }
     }
 });
 
 // waiter bringing food alert.
-let showAlert = (itemName) => {
+let showAlert = (itemName, itemQty) => {
     let alertPlaceholder = document.getElementById('alert-placeholder');
     if (!alertPlaceholder) return;
 
@@ -259,7 +438,7 @@ let showAlert = (itemName) => {
     orderPlacedAlert.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
            <i class="fa-solid fa-cart-shopping me-2"></i>
-           A waiter will bring your ${itemName} shortly!
+           ${itemName} (x${itemQty}) added to cart!
            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     `;
