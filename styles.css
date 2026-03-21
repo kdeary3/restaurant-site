@@ -174,3 +174,7 @@ input {
 .container {
     padding: 10px 10px 10px;
 }
+
+#alert-placeholder {
+    z-index: 2000 !important;
+}
