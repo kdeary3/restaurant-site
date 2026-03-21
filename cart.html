@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="styles.css">
 
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -67,24 +68,66 @@
 
             <h1>Cart:</h1>
             <ul id="items-in-cart" class="list-group shadow-sm"></ul>
-            <ul id="customer-cost" class="list-group shadow-sm"></ul>
+            <div id="customer-cost"></div>
             <div>
                 <br>
                 <a class="btn btn-primary checkout-btn" href="menu.html">Back to Menu</a>
 
-                <button class="btn btn-danger clear-cart">
-                    <i class="fa-solid fa-trash-can me-2"></i>Empty Cart
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger clear-cart" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fa-solid fa-trash-can me-2"></i>Cancel Order
                 </button>
-                <button class="btn btn-success cart-checkout">
-                    <i></i>Checkout
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Cancel Order</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="cancel-modal-body">
+                                Are you sure you want to cancel your order?
+                            </div>
+                            <div class="modal-footer" id="cancel-modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <button type="button" class="btn btn-danger confirm-clear">Confirm Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+                    <i class="fa-solid fa-check me-2"></i>Confirm Order
                 </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Confirm Submission</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-start" id="checkout-modal-body">
+                                Ready to submit your order?
+                            </div>
+                            <div class="modal-footer" id="checkout-modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Wait, not yet</button>
+                                <button type="button" class="btn btn-success confirm-checkout">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
