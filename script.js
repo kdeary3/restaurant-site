@@ -140,12 +140,102 @@ if (menuContainer || pricingContainer) {
         },
         {
             id: 10,
+            name: "Nook Gan Sal",
+            description: "Marinated prime chuck roll",
+            price: "Regular",
+            category: "Beef",
+            spice_level: spice_level(1),
+            item_image: "/images/menu_item_images/img10"
+        },
+        {
+            id: 11,
+            name: "Daechang",
+            description: "Large ox intestine marinated with a sweet teriyaki sauce",
+            price: "Regular",
+            category: "Beef",
+            spice_level: spice_level(0),
+            item_image: "/images/menu_item_images/img11"
+        },
+        {
+            id: 12,
+            name: "Calamari Steak",
+            description: "Calamari steak with green tea salt sprinkle",
+            price: "Premium",
+            category: "Seafood",
+            spice_level: spice_level(0),
+            item_image: "/images/menu_item_images/img12"
+        },
+        {
+            id: 13,
+            name: "Cheese Tonkatsu",
+            description: "Deep fried cheese pork cutlet served with a side of tonkatsu sauce",
+            price: `Not Included <br> ${money.format(5.99)}`,
+            category: "Pork",
+            spice_level: spice_level(0),
+            item_image: "/images/menu_item_images/img13"
+        },
+        {
+            id: 14,
+            name: "Hotteok",
+            description: "Korean sweet pancake topped with powdered sugar",
+            price: `Not Included <br> ${money.format(1.99)}`,
+            category: "Dessert",
+            spice_level: spice_level(0),
+            item_image: "/images/menu_item_images/img14"
+        },
+        {
+            id: 15,
+            name: "Tteokbokki",
+            description: "Fried rice cake sticks with fish and a sweet & spicy sauce",
+            price: `Not Included <br> ${money.format(1.99)}`,
+            category: "Seafood",
+            spice_level: spice_level(0),
+            item_image: "/images/menu_item_images/img15"
+        },
+        {
+            id: 16,
+            name: "Cajun Jumbo Shrimp",
+            description: "Big ahh shrimp",
+            price: `Premium`,
+            category: "Seafood",
+            spice_level: spice_level(3),
+            item_image: "/images/menu_item_images/img16"
+        },
+        {
+            id: 17,
+            name: "Samgyubsal",
+            description: "Pork belly marinated with a bold & zesty sauce",
+            price: "Regular",
+            category: "Pork",
+            spice_level: spice_level(2),
+            item_image: "/images/menu_item_images/img17"
+        },
+        {
+            id: 18,
+            name: "Hangjungsal",
+            description: "Signature pork cheek",
+            price: "Regular",
+            category: "Pork",
+            spice_level: spice_level(1),
+            item_image: "/images/menu_item_images/img18"
+        },
+        {
+            id: 19,
+            name: "Premium Wagyu",
+            description: "Intensely marbled, premium beef known for its buttery, tender texture and rich umami flavor that melts in the mouth",
+            price: "Premium",
+            category: "Beef",
+            spice_level: spice_level(0),
+            item_image: "/images/menu_item_images/img19"
+        },
+        {
+            id: 20,
             name: "Cat Meat",
             description: "Questionable",
             price: `Not Included <br> ${money.format(9999.99)}`,
             category: "Cat",
             spice_level: spice_level(5),
-            item_image: "/images/menu_item_images/img10"
+            item_image: "/images/menu_item_images/img20"
         }
     ]
 
