@@ -458,7 +458,7 @@ document.addEventListener("click", (event) => {
             <div class="text-center py-3">
                 <i class="fa-solid fa-circle-check text-success fs-1 mb-3"></i>
                 <h4>Thank you!</h4>
-                <p>Your order has been sent to the kitchen. <br>
+                <p>A waiter will bring your items shortly. <br>
                 Going back to the menu.</p>
 
             </div>
