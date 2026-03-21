@@ -23,6 +23,22 @@ document.addEventListener("DOMContentLoaded", function (){
     }
 });
 
+document.addEventListener("DOMContentLoaded", function (){
+    let clearCart = document.getElementById('clear-cart');
+    if (clearCart) {
+        let discountEmailForm = clearCart.querySelector('form');
+        discountEmailForm.addEventListener("submit", (event)=> {
+            event.preventDefault();
+            let email = new FormData(discountEmailForm).get("email");
+            console.log("Discount Email Captured:", email);
+            discountEmailForm.reset();
+            modal.hide();
+        });
+        let modal = new bootstrap.Modal(clearCart);
+        modal.show();
+    }
+});
+
 // menu page
 let menuContainer = document.getElementById('menu-container');
 let pricingContainer = document.getElementById('lunchDinnerPremiumPricing');
@@ -298,6 +314,8 @@ function displayCustomerCost() {
     const taxRate = 0.0825;
     const taxAmount = totals.subtotal * taxRate;
     const grandTotal = totals.subtotal + taxAmount;
+    // let premium = `<span className="badge bg-warning text-dark">Premium</span>`
+    // let regular = `<span className="badge bg-primary">Regular</span>`
 
     displayContainer.innerHTML = `
         <br>
@@ -315,11 +333,21 @@ function displayCustomerCost() {
             
             <div class="d-flex justify-content-between mb-1">
                 <span>${totals.regOrPrem} Menu (${money.format(totals.rateUsed)}/person):</span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
                 <span>${money.format(totals.partyTotal)}</span>
             </div>
             
             <div class="d-flex justify-content-between mb-1">
-                <span>Add-ons (Boba, etc.):</span>
+                <span>Add-ons (Cat Meat, Boba, etc.):</span>
                 <span>${money.format(totals.addonsTotal)}</span>
             </div>
             
@@ -342,7 +370,6 @@ function displayCustomerCost() {
         displayCustomerCost();
     });
 }
-
 
 function calculateOrderSubtotal() {
     const cart = JSON.parse(localStorage.getItem("userCart")) || [];
@@ -380,7 +407,7 @@ document.addEventListener('click', (event) => {
         const index = event.target.closest('.remove-item').dataset.index;
         let cart = JSON.parse(localStorage.getItem("userCart")) || [];
 
-        cart.splice(index, 1); // Remove the item
+        cart.splice(index, 1);
         localStorage.setItem("userCart", JSON.stringify(cart));
         displayCart(); // Refresh the UI
         displayCustomerCost();
@@ -391,40 +418,59 @@ document.addEventListener('click', (event) => {
 displayCart();
 displayCustomerCost()
 
-// Clear cart
-document.addEventListener(
-    "click", (event) => {
-    if (event.target.closest(".clear-cart")) {
-        clearCartConfirm.innerHTML =
-            `
-            <button className="btn btn-success cart-checkout">
-                <i></i>Checkout
-            </button>
-            `
-
-        let clearCartConfirm = discountModal.querySelector('form');
-        discountEmailForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-            localStorage.removeItem("userCart");
-            displayCart();
-            displayCustomerCost();
-            console.log("Cart cleared by user.");
-            modal.hide();
-        });
-        let modal = new bootstrap.Modal(discountModal);
-        modal.show();
-    }
-    });
-
-// Clear cart
+// Menu cancel order or clear cart
 document.addEventListener("click", (event) => {
-    if (event.target.closest(".cart-checkout")) {
-        if (confirm("Thank you.")) {
-            localStorage.removeItem("userCart");
-            displayCart();
-            displayCustomerCost();
-            console.log("User check out");
-        }
+    // --- HANDLE CANCEL ---
+    if (event.target.classList.contains("confirm-clear")) {
+        localStorage.removeItem("userCart");
+
+        const body = document.getElementById('cancel-modal-body');
+        const footer = document.getElementById('cancel-modal-footer');
+
+        body.innerHTML = `
+            <div class="text-center py-3">
+                <i class="fa-solid fa-circle-check text-success fs-1 mb-3"></i>
+                <h4>Order Cancelled.</h4>
+                <p>Going back to the menu.</p>
+            </div>
+        `;
+
+        // Hide the buttons so they can't click twice
+        footer.style.display = "none";
+
+        // 3. Wait 2 seconds so they can read it, then redirect
+        setTimeout(() => {
+            window.location.href = "menu.html";
+        }, 2500);
+
+    }
+
+    // --- HANDLE CHECKOUT ---
+    if (event.target.classList.contains("confirm-checkout")) {
+        // 1. Clear the cart data
+        localStorage.removeItem("userCart");
+
+        // 2. Change the UI inside the modal to say Thank You
+        const body = document.getElementById('checkout-modal-body');
+        const footer = document.getElementById('checkout-modal-footer');
+
+        body.innerHTML = `
+            <div class="text-center py-3">
+                <i class="fa-solid fa-circle-check text-success fs-1 mb-3"></i>
+                <h4>Thank you!</h4>
+                <p>Your order has been sent to the kitchen. <br>
+                Going back to the menu.</p>
+
+            </div>
+        `;
+
+        // Hide the buttons so they can't click twice
+        footer.style.display = "none";
+
+        // 3. Wait 2 seconds so they can read it, then redirect
+        setTimeout(() => {
+            window.location.href = "menu.html";
+        }, 2500);
     }
 });
 
